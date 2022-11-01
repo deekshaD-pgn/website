@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog list{% endblock %}
+
+{% block content %}
+
+  {% if blogs %}
+    <h2>Blog entries:</h2>
+    {% for blog in blogs %}
+       {% include 'blog/parts/blog_list_item.html' %}
+    {% endfor %}
+  {% else %}
+    <h2>There is no blog entries!</h2>
+
+  {% endif %}
+    	
+
+{% endblock %}

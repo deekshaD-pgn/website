@@ -1,0 +1,19 @@
+body {
+  font-family: sans-serif; 
+
+}
+
+.blog-box {
+  border: 1px solid black;
+}
+
+.blog-box-title {
+  background-color: lightgray;
+  font-size: large;
+  font-weight: bold;
+}
+
+.blog-box-date {
+ float: right;
+ font-size: medium;
+}
