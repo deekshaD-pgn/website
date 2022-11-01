@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Blog Entry{% endblock %}
+
+{% block content %}
+Are you sure you want to delete blog entry #{{ blog_item.id }}, with title &quot;{{ blog_item.title }}&quot;?
+<form method="post" action="">
+  {% csrf_token %}
+  <input type="hidden" name="delete" value="YES">
+  <input type="hidden" name="id" value="{{ blog_item.id }}">
+  <button type="submit">Yes</button>
+ </form> 
+
+ <a href="{% url 'blog-list' %}">NO</a>
+{% endblock %}
