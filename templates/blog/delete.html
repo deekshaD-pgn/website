@@ -8,8 +8,12 @@ Are you sure you want to delete blog entry #{{ blog_item.id }}, with title &quot
   {% csrf_token %}
   <input type="hidden" name="delete" value="YES">
   <input type="hidden" name="id" value="{{ blog_item.id }}">
-  <button type="submit">Yes</button>
- </form> 
+  <button class="btn btn-danger" type="submit">Yes</button>
+  <a class="btn btn-primary" href="{% url 'blog-list' %}">NO</a>
+ 
+</form> 
 
- <a href="{% url 'blog-list' %}">NO</a>
+
+
+
 {% endblock %}

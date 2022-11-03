@@ -1,19 +1,27 @@
-body {
-  font-family: sans-serif; 
+.form-group {
+  padding-top: 0.5rem;
 
 }
 
+
+
+
 .blog-box {
   border: 1px solid black;
+  margin: 1rem;
 }
 
 .blog-box-title {
   background-color: lightgray;
-  font-size: large;
+  font-size: x-large;
   font-weight: bold;
 }
 
 .blog-box-date {
  float: right;
  font-size: medium;
+}
+
+.blog-box-body {
+  padding: 0.5rem;
 }

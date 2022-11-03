@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import BlogItem
 from django.views.generic import TemplateView
 from django.http.response import HttpResponse
+from django.core.exceptions import PermissionDenied
 
 def home_view(request, *args, **kwargs):
 	return redirect('blog-list')
@@ -9,6 +10,7 @@ def home_view(request, *args, **kwargs):
 def list_view(request, *args, **kwargs):
 	ctx = {
 	     'blogs': BlogItem.objects.all(),
+	     'user': request.user,
 	}
 	return render(request, 'blog/list.html', context=ctx)
 
@@ -26,6 +28,7 @@ class CreateView(TemplateView):
 		    title = request.POST['title']
 		    body = request.POST['body']
 		    blog_item = BlogItem()
+		    blog_item.owner = request.user
 		    blog_item.title = title
 		    blog_item.body = body
 		    blog_item.save()
@@ -58,6 +61,8 @@ class DeleteView(TemplateView):
 		return super().get(request, *args, **kwargs)
 
 	def post(self,  request, *args, **kwargs):	
+		if not request.user.is_authenticated:
+			raise PermissionDenied('You must be logged in')
 		if 'delete' not in request.POST:
 			return HttpResponse('<h1>Intruder!</h1>', status=400)
 
@@ -73,7 +78,9 @@ class DeleteView(TemplateView):
 		
 		except (ValueError, TypeError, BlogItem.DoesNotExist):
 			
-			return HttpResponse('<h1>Not found</h1>', status=400)			
+			return HttpResponse('<h1>Not found</h1>', status=400)	
+		if blog_item.owner != request.user:
+			raise PermissionDenied			
 
 		blog_item.delete()
 		return redirect('blog-list')	
