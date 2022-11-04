@@ -11,19 +11,28 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('BLOGSITE_DEBUG', "no").lower().strip() in ('true', 'yes', 'y', '1')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+if DEBUG:
+    VAR_DIR = BASE_DIR / 'var'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+else:  
+    VAR_DIR = Path('/var/blogsite')
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(struxx$wk-=giy6e$7012w*=o9!xwhx^@vj=c=wjfb7%m*-*1'
+if DEBUG:
+    SECRET_KEY = 'django-insecure-(struxx$wk-=giy6e$7012w*=o9!xwhx^@vj=c=wjfb7%m*-*1'
+else:
+    SECRET_KEY = os.environ['BLOGSITE_SECRET']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,7 +88,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3' if DEBUG else VAR_DIR / 'db.sqlite3',
     }
 }
 
@@ -123,6 +132,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
      "static/",
 ]
+
+STATIC_ROOT = VAR_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
