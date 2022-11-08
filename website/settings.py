@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
+
+dotenv.load_dotenv('/etc/opt/blogsite/blogsite.env')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('BLOGSITE_DEBUG', "no").lower().strip() in ('true', 'yes', 'y', '1')
