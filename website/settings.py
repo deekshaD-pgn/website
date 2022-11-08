@@ -24,7 +24,7 @@ if DEBUG:
     VAR_DIR = BASE_DIR / 'var'
 
 else:  
-    VAR_DIR = Path('/var/blogsite')
+    VAR_DIR = Path('/var/opt/blogsite')
 
 
 # SECURITY WARNING: keep the secret key used in production secret!

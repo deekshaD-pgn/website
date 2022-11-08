@@ -1,0 +1,17 @@
+[Unit]
+Description=blogsite uWSGI server
+After=syslog.target
+
+[Service]
+User=blogsite
+Group=blogsite
+ExecStart=/opt/blogsite/venv/bin/uwsgi --ini /etc/opt/blogsite/uwsgi.ini
+RuntimeDirectory=/var/opt/blogsite/run
+Restart=always
+KillSignal=SIGTERM
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
