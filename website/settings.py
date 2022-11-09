@@ -14,10 +14,12 @@ from pathlib import Path
 import os
 import dotenv
 
-dotenv.load_dotenv('/etc/opt/blogsite/blogsite.env')
+
+if not dotenv.load_dotenv():
+    dotenv.load_dotenv('/etc/opt/blogsite/blogsite.env')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('BLOGSITE_DEBUG', "no").lower().strip() in ('true', 'yes', 'y', '1')
+DEBUG = os.environ['BLOGSITE_DEBUG'].lower().strip() in ('true', 'yes', 'y', '1')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,16 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 if DEBUG:
     VAR_DIR = BASE_DIR / 'var'
-
 else:  
     VAR_DIR = Path('/var/opt/blogsite')
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if DEBUG:
-    SECRET_KEY = 'django-insecure-(struxx$wk-=giy6e$7012w*=o9!xwhx^@vj=c=wjfb7%m*-*1'
-else:
-    SECRET_KEY = os.environ['BLOGSITE_SECRET']
+SECRET_KEY = os.environ['BLOGSITE_SECRET']
 
 
 ALLOWED_HOSTS = ['*']
@@ -91,7 +89,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3' if DEBUG else VAR_DIR / 'db.sqlite3',
+        'NAME': VAR_DIR / 'db/db.sqlite3',
     }
 }
 
