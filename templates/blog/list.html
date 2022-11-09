@@ -8,7 +8,7 @@
   {% if blogs %}
     <h2 onclick="titleClick(this)">Blog entries:</h2>
     {% for blog in blogs %}
-       {% include 'blog/parts/blog_list_item.html' %}
+       {% include 'blog/partial/blog_list_item.html' %}
     {% endfor %}
   {% else %}
     <h2>There is no blog entries!</h2>
