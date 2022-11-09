@@ -25,7 +25,7 @@ DEBUG = os.environ['BLOGSITE_DEBUG'].lower().strip() in ('true', 'yes', 'y', '1'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-VAR_DIR = os.environ['BLOGSITE_VAR_DIR']
+VAR_DIR = Path(os.environ['BLOGSITE_VAR_DIR'])
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
